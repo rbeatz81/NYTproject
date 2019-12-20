@@ -112,8 +112,31 @@
     <!-- jQuery JS -->
     <script src="https://code.jquery.com/jquery.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0/js/bootstrap.bundle.min.js"></script>
+
+
     <!-- Code to the JavaScript File -->
-    <script src="NYTCode.js"></script>
+    <script src="NYTCode.js">
+
+        // This function handles events where one button is clicked
+        $("#run-search").on("click", function (event) {
+            // Preventing the buttons default behavior when clicked (which is submitting a form)
+            event.preventDefault();
+            // This line grabs the input from the textbox
+            var term = $("#search-term").val().trim();
+
+            var startYear = $("#start-year").val().trim();
+
+            var endYear = $("#end-year").val().trim();
+
+            console.log(term);
+            console.log(startYear);
+            console.log(endYear);
+
+
+
+        });
+
+    </script>
 </body>
 
 </html>
