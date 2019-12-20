@@ -1,6 +1,7 @@
 function buildQueryURL() {
     var nytURL = "https://api.nytimes.com/svc/search/v2/articlesearch.json?";
 
+    var apiKey = "y9It4xe4xRUiYuSIDde2KDmSv37SvV36";
     //q=election&api-key=y9It4xe4xRUiYuSIDde2KDmSv37SvV36
 
 
@@ -9,9 +10,17 @@ function buildQueryURL() {
 
     var startYear = $("#start-year").val().trim();
 
+    if (parseInt(startYear)) {
+        startYear = startYear + "0101";
+    }
+
     var endYear = $("#end-year").val().trim();
 
-    var newUrl = nytURL + "q=" + term + "&begin-date=" + startYear + "&end-date=" + endYear;
+    if (parseInt(endYear)) {
+        endYear = endYear + "0101";
+    }
+
+    var newUrl = nytURL + "q=" + term + "&begin-date=" + startYear + "&end-date=" + endYear + "key=" + apiKey;
 
 
 
@@ -32,17 +41,19 @@ $("#run-search").on("click", function () {
     event.preventDefault();
 
 
-
-    var url = buildQueryURL();
-    console.log("Hello");
-    console.log("" + url);
-
     clear();
+    var url = buildQueryURL();
 
-    // console.log("" + term);
-    // console.log("" + startYear);
-    // console.log("" + endYear);
+    $.ajax({
+        url: url,
+        method: "GET"
 
-
-
+    }).then(function (response) {
+        console.log(response);
+    });
 });
+
+$("#clear-all").on("click", function () {
+    clear();
+});
+
